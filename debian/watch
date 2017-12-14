@@ -1,0 +1,2 @@
+version=4
+https://sf.net/e1000/ixgbe%20stable/(\d\S+)/ixgbe-(\d\S+)\.(?:zip|tgz|tbz|txz|(?:tar\.(?:gz|bz2|xz)))

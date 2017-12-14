@@ -1,0 +1,5 @@
+## tarballs at SourceForge are supplied without signatures at all
+debian-watch-may-check-gpg-signature
+
+## no tests
+testsuite-autopkgtest-missing

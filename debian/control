@@ -1,0 +1,25 @@
+Source: ixgbe
+Section: kernel
+Priority: optional
+Maintainer: Konstantin Demin <rockdrilla@gmail.com>
+Build-Depends: debhelper (>= 10), dkms
+Standards-Version: 4.1.2
+Homepage: http://e1000.sourceforge.net
+Vcs-Git: https://github.com/rockdrilla/debian.pkg.ixgbe-dkms.git
+Vcs-Browser: https://github.com/rockdrilla/debian.pkg.ixgbe-dkms
+
+Package: ixgbe-dkms
+Architecture: all
+Depends: ${misc:Depends}
+Provides: ixgbe
+Description: Kernel module for Intel Ethernet Network Connections - ixgbe
+ This package includes ixgbe Linux Base Drivers for Intel Ethernet Network
+ Connections.
+ .
+ - The ixgbe driver supports devices based on the following controllers:
+   * Intel(R) Ethernet Controller 82598
+   * Intel(R) Ethernet Controller 82599
+   * Intel(R) Ethernet Controller X540
+   * Intel(R) Ethernet Controller x550
+   * Intel(R) Ethernet Controller X552
+   * Intel(R) Ethernet Controller X553

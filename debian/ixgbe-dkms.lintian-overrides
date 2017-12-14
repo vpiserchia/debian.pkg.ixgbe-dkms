@@ -1,0 +1,5 @@
+## it's 3rd party package so no ITP is available
+new-package-should-close-itp-bug
+
+## tarballs are supplied without any kind of changelog
+no-upstream-changelog

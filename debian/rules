@@ -1,0 +1,24 @@
+#!/usr/bin/make -f
+export DH_VERBOSE := 1
+export DPKG_EXPORT_BUILDFLAGS := 1
+include /usr/share/dpkg/default.mk
+
+%:
+	dh $@ --with dkms
+
+override_dh_auto_clean:
+
+override_dh_auto_build:
+
+override_dh_auto_install:
+
+override_dh_clean:
+	rm -f debian/install
+	dh_clean
+
+override_dh_install:
+	sed -e "s/%DEB_VERSION_UPSTREAM%/$(DEB_VERSION_UPSTREAM)/g" debian/install.in > debian/install
+	dh_install
+
+override_dh_dkms:
+	dh_dkms -V $(DEB_VERSION_UPSTREAM)

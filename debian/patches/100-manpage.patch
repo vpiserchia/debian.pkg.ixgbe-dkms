@@ -1,0 +1,245 @@
+Author: Konstantin Demin <rockdrilla@gmail.com>
+Subject: fix manpage errors
+
+--- a/ixgbe.7
++++ b/ixgbe.7.n
+@@ -38,7 +38,8 @@ modprobe ixgbe InterruptThrottleRate=16000,16000
+ .LP
+ .B RSS
+ .IP
+-.B Valid Range: 0-16
++.B Valid Range:
++0-16
+ .IP
+ 0 = Assign up to the lesser value of the number of CPUs or the number of queues
+ .IP
+@@ -51,18 +52,19 @@ newer kernels with CONFIG_NETDEVICES_MULTIQUEUE set in the kernel .config file.
+ CONFIG_NETDEVICES_MULTIQUEUE only exists from 2.6.23 to 2.6.26. Other options
+ enable multiqueue in 2.6.27 and newer kernels.
+ .LP
+-.B MQ - Multiqueue
++.B MQ (Multiqueue)
+ .IP
+-.LP
+ .B Valid Range:
+ 0, 1
+ .IP
+ 0 = Disables Multiple Queue support
++.IP
+ 1 = Enabled Multiple Queue support (a prerequisite for RSS)
+ .LP
+-.B Direct Cache Access (DCA)
++.B DCA (Direct Cache Access)
+ .IP
+-.B Valid Range: 0, 1
++.B Valid Range:
++0, 1
+ .IP
+ 0 = Disables DCA support in the driver
+ .IP
+@@ -71,24 +73,32 @@ enable multiqueue in 2.6.27 and newer kernels.
+ If the driver is enabled for DCA, this parameter allows load-time control of
+ the feature.
+ .IP
+-Note: DCA is not supported on X550-based adapters.
++.B NOTE:
++DCA is not supported on X550-based adapters.
+ .LP
+ .B IntMode
+ .IP
+-.B Valid Range: 0-2 (0 = Legacy Int, 1 = MSI and 2 = MSI-X)
++.B Valid Range:
++0-2
++.IP
++0 = Legacy Int
++.IP
++1 = MSI
++.IP
++2 = MSI-X
+ .IP
+ IntMode controls allow load time control over the type of interrupt
+-registered for by the driver. MSI-X is required for multiple queue
+-support, and some kernels and combinations of kernel .config options
+-will force a lower level of interrupt support.
+-'cat /proc/interrupts' will show different values for each type of interrupt.
++registered for by the driver.
++MSI-X is required for multiple queue support, and some kernels and
++combinations of kernel .config options will force a lower level of interrupt
++support.
++.B 'cat /proc/interrupts'
++will show different values for each type of interrupt.
+ .LP
+ .B InterruptThrottleRate
+ .IP
+ .B Valid Range:
+-0=off
+-1=dynamic
+-<min_ITR>-<max_ITR>
++0=off, 1=dynamic, <min_ITR>-<max_ITR>
+ .IP
+ Interrupt Throttle Rate controls the number of interrupts each interrupt
+ vector can generate per second. Increasing ITR lowers latency at the cost of
+@@ -119,7 +129,8 @@ increased CPU utilization, though it may help throughput in some circumstances.
+ .LP
+ .B LLIPort
+ .IP
+-.B Valid Range: 0-65535
++.B Valid Range:
++0-65535
+ .IP
+ LLI is configured with the LLIPort command-line parameter, which specifies
+ which TCP port should generate Low Latency Interrupts.
+@@ -127,57 +138,73 @@ which TCP port should generate Low Latency Interrupts.
+ For example, using LLIPort=80 would cause the board to generate an immediate
+ interrupt upon receipt of any packet sent to TCP port 80 on the local machine.
+ .IP
+-WARNING: Enabling LLI can result in an excessive number of interrupts/second
++.B WARNING:
++Enabling LLI can result in an excessive number of interrupts/second
+ that may cause problems with the system and in some cases may cause a kernel
+ panic.
+ 
+-Note: LLI is not supported on X550-based adapters.
++.B NOTE:
++LLI is not supported on X550-based adapters.
+ .LP
+ .B LLIPush
+ .IP
+-.B Valid Range: 0-1
++.B Valid Range:
++0-1
+ .IP
+ LLIPush can be set to be enabled or disabled (default). It is most effective
+ in an environment with many small transactions.
+ .IP
+-NOTE: Enabling LLIPush may allow a denial of service attack.
++.B NOTE:
++Enabling LLIPush may allow a denial of service attack.
+ 
+-Note: LLI is not supported on X550-based adapters.
++.B NOTE:
++LLI is not supported on X550-based adapters.
+ .LP
+ .B LLISize
+ .IP
+-.B Valid Range: 0-1500
++.B Valid Range:
++0-1500
+ .IP
+ LLISize causes an immediate interrupt if the board receives a packet smaller
+ than the specified size.
+ 
+-Note: LLI is not supported on X550-based adapters.
++.B NOTE:
++LLI is not supported on X550-based adapters.
++.LP
+ .B LLIEType
+ .IP
+-.B Valid Range: 0-0x8FFF
++.B Valid Range:
++0-0x8FFF
+ .IP
+ This parameter specifies the Low Latency Interrupt (LLI) Ethernet protocol type.
+ 
+-Note: LLI is not supported on X550-based adapters.
+-LLIVLANP
+---------
+-
+-Valid Range: 0-7
+-
++.B NOTE:
++LLI is not supported on X550-based adapters.
++.LP
++.B LLIVLANP
++.IP
++.B Valid Range:
++0-7
++.IP
+ This parameter specifies the LLI on VLAN priority threshold.
+ 
+-Note: LLI is not supported on X550-based adapters.
++.B NOTE:
++LLI is not supported on X550-based adapters.
++.LP
+ .B FdirPballoc
+ .IP
+-.B Valid Range: 1-3
++.B Valid Range:
++1-3
+ .IP
+ Specifies the Flow Director allocated packet buffer size.
+ 1 = 64k
+ 2 = 128k
+ 3 = 256k
+-.BAtrSampleRate
++.LP
++.B AtrSampleRate
+ .IP
+-Valid Range: 0-255
++.B Valid Range:
++0-255
+ .IP
+ This parameter is used with the Flow Director and is the software ATR transmit
+ packet sample rate. For example, when AtrSampleRate is set to 20, every 20th
+@@ -185,14 +212,18 @@ packet looks to see if the packet will create a new flow. A value of 0
+ indicates that ATR should be disabled and no samples will be taken.
+ .LP
+ .B L2LBen
+-.B Valid Range: 0 (disabled), 1 (enabled)
++.IP
++.B Valid Range:
++0 (disabled), 1 (enabled)
+ .IP
+ This parameter controls the internal switch (L2 loopback between pf and vf).
+ By default the switch is enabled.
+ .LP
+ .B LRO
+ .IP
+-.B Valid Range: 0(off), 1(on)
++.B Valid Range:
++0(off), 1(on)
++.IP
+ Large Receive Offload (LRO) is a technique for increasing inbound throughput
+ of high-bandwidth network connections by reducing CPU overhead. It works by
+ aggregating multiple incoming packets from a single stream into a larger
+@@ -206,16 +237,18 @@ LRO parameter controls HW RSC enablement.
+ .IP
+ You can verify that the driver is using LRO by looking at these counters in
+ ethtool:
+-.LP
++.IP
+ - hw_rsc_aggregated - counts total packets that were combined
+-.LP
++.IP
+ - hw_rsc_flushed - counts the number of packets flushed out of LRO
+ .IP
+-NOTE: IPv6 and UDP are not supported by LRO.
++.B NOTE:
++IPv6 and UDP are not supported by LRO.
+ .LP
+ .B MDD (Malicious Driver Detection)
+ .IP
+-.B Valid Range: 0-1
++.B Valid Range:
++0-1
+ .IP
+ 0 = Disabled
+ .IP
+@@ -236,11 +269,14 @@ Alternatively, you can use the ip command as follows:
+    ip link set up dev eth<x>
+ 
+ .LP
+-NOTE: The maximum MTU setting for Jumbo Frames is 9710. This value coincides with the maximum Jumbo Frames size of 9728 bytes.
++.B NOTE:
++The maximum MTU setting for Jumbo Frames is 9710. This value coincides with the maximum Jumbo Frames size of 9728 bytes.
+ 
+-NOTE: This driver will attempt to use multiple page sized buffers to receive each jumbo packet. This should help to avoid buffer starvation issues when allocating receive packets.
++.B NOTE:
++This driver will attempt to use multiple page sized buffers to receive each jumbo packet. This should help to avoid buffer starvation issues when allocating receive packets.
+ 
+-NOTE: For 82599-based network connections, if you are enabling jumbo frames in a virtual function (VF), jumbo frames must first be enabled in the physical function (PF). The VF MTU setting cannot be larger than the PF MTU.
++.B NOTE:
++For 82599-based network connections, if you are enabling jumbo frames in a virtual function (VF), jumbo frames must first be enabled in the physical function (PF). The VF MTU setting cannot be larger than the PF MTU.
+ See the section "Jumbo Frames" in the Readme.
+ .SH SUPPORT
+ .LP

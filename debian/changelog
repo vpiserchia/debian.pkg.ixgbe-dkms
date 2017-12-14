@@ -1,0 +1,5 @@
+ixgbe (5.3.4-1) unstable; urgency=medium
+
+  * Initial release.
+
+ -- Konstantin Demin <rockdrilla@gmail.com>  Thu, 14 Dec 2017 09:53:01 +0300
