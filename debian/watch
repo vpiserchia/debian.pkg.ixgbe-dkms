@@ -1,2 +1,6 @@
 version=4
-https://sf.net/e1000/ixgbe%20stable/(\d\S+)/ixgbe-(\d\S+)\.(?:zip|tgz|tbz|txz|(?:tar\.(?:gz|bz2|xz)))
+opts="uversionmangle=s/-pre/~pre/, \
+      filenamemangle=s%(?:.*)ixgbe-(.+)\.(?:zip|tgz|tbz|txz|(?:tar\.(?:gz|bz2|xz)))/download%\
+                       ixgbe-$1\.tar.bz2%" \
+      http://sourceforge.net/projects/e1000/files/ixgbe%20stable/(\d[\d\.]+)/ \
+      (?:.*)ixgbe-([\d\.]+)\.(?:zip|tgz|tbz|txz|(?:tar\.(?:gz|bz2|xz)))/download debian uupdate
