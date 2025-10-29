@@ -3,22 +3,23 @@ export DH_VERBOSE := 1
 export DPKG_EXPORT_BUILDFLAGS := 1
 include /usr/share/dpkg/default.mk
 
+VERSION	:= $(shell dpkg-parsechangelog | sed -nr '/^Version:/s/Version: (.*:)?(.*)-(.*)/\2/p')
+
 %:
-	dh $@ --with dkms
-
-override_dh_auto_clean:
-
-override_dh_auto_build:
-
-override_dh_auto_install:
-
-override_dh_clean:
-	rm -f debian/install
-	dh_clean
+	dh $@ --with dkms,quilt
 
 override_dh_install:
-	sed -e "s/%DEB_VERSION_UPSTREAM%/$(DEB_VERSION_UPSTREAM)/g" debian/install.in > debian/install
-	dh_install
+	sed -e "s/%DEB_VERSION_UPSTREAM%/$(DEB_VERSION_UPSTREAM)/g" debian/ixgbe-dkms.install.in > debian/ixgbe-dkms.install
+	dh_install src/*.c src/*.h src/Makefile src/common.mk src/kcompat-*.sh usr/src/ixgbe-$(VERSION)/
+	find debian/ixgbe-dkms/usr/src -type f -perm -5 -print0 2>/dev/null | xargs -0r chmod a-X
+
+override_dh_clean:
+	rm -rf debian/ixgbe-dkms.install debian/ixgbe-dkms debian/debhelper-build-stamp debian/files debian/ixgbe-dkms.debhelper.log debian/ixgbe-dkms.debhelper.log debian/ixgbe-dkms.postinst.debhelper debian/ixgbe-dkms.prerm.debhelper debian/ixgbe-dkms.substvars debian/ixgbe-dkms.dkms.debhelper
+	dh_clean
 
 override_dh_dkms:
 	dh_dkms -V $(DEB_VERSION_UPSTREAM)
+
+# do nothing
+override_dh_auto_configure override_dh_auto_build override_dh_auto_test override_dh_auto_install override_dh_auto_clean:
+

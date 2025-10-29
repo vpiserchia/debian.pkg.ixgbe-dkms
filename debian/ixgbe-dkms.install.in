@@ -1,0 +1,2 @@
+debian/ixgbe-dkms.conf etc/depmod.d/
+src/* usr/src/ixgbe-%DEB_VERSION_UPSTREAM%
