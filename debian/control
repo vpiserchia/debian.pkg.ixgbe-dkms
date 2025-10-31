@@ -1,7 +1,7 @@
 Source: ixgbe
 Section: kernel
 Priority: optional
-Maintainer: Vito Piserchia <vpiserchia@gmail.com>
+Maintainer: Vito Piserchia <vpiserchia@users.noreply.github.com>
 Build-Depends: debhelper (>= 10), dkms
 Standards-Version: 4.1.2
 Homepage: http://e1000.sourceforge.net
